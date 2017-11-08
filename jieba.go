@@ -92,10 +92,12 @@ func (x *Jieba) Tag(s string) []string {
 	return res
 }
 
-func (x *Jieba) AddWord(s string) {
+func (x *Jieba) AddWord(s string, t string) {
 	cstr := C.CString(s)
+	tag := C.CString(t)
 	defer C.free(unsafe.Pointer(cstr))
-	C.AddWord(x.jieba, cstr)
+	defer C.free(unsafe.Pointer(tag))
+	C.AddWord(x.jieba, cstr, tag)
 }
 
 func (x *Jieba) Tokenize(s string, mode TokenizeMode, hmm bool) []Word {
