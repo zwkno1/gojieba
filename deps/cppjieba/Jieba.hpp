@@ -69,7 +69,10 @@ class Jieba {
     return mix_seg_.LookupTag(str);
   }
   bool InsertUserWord(const string& word, const string& tag = UNKNOWN_TAG) {
-    return dict_trie_.InsertUserWord(word, tag);
+	if(tag == "")
+      return dict_trie_.InsertUserWord(word, UNKNOWN_TAG);
+	else
+	  return dict_trie_.InsertUserWord(word, tag);
   }
 
   void ResetSeparators(const string& s) {
